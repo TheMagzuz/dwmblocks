@@ -1,8 +1,8 @@
 /* macro for conveniently specifying pathu and pathc below */
-#define PATH(name)                      "/home/ashish/.local/projects/dwmblocks/blocks/"name
+#define PATH(name)                      "/home/markus/suckless/dwmblocks/blocks/"name
 
 /* buffer size for capturing output of the programs used for updating blocks */
-#define CMDOUTLENGTH                    50
+#define CMDOUTLENGTH                    100
 
 /* buffer size for status text */
 #define STATUSLENGTH                    256
@@ -20,7 +20,7 @@
 
 /* delimiter specified as an array of characters
  * don't remove DELIMITERENDCHAR at the end */
-static const char delimiter[] = { ' ', ' ', ' ', DELIMITERENDCHAR };
+static const char delimiter[] = { ' ', '|', ' ', DELIMITERENDCHAR };
 
 #include "block.h"
 
@@ -41,14 +41,17 @@ static const char delimiter[] = { ' ', ' ', ' ', DELIMITERENDCHAR };
  * pathc - path of the program used for handling clicks on the block */
 
 /* 1 interval = INTERVALs seconds, INTERVALn nanoseconds */
-#define INTERVALs                       1
-#define INTERVALn                       0
+#define INTERVALs                       0
+#define INTERVALn                       1000000
 
 static Block blocks[] = {
 /*      pathu                           pathc                           interval        signal */
-        { PATH("calendar.sh"),          NULL,                           30,             1},
+        { PATH("network.sh"),           NULL,                           5000,           6},
+        { PATH("keyboard.sh"),          PATH("keyboard_button.sh"),     0,              5},
         { PATH("volume.sh"),            PATH("volume_button.sh"),       0,              2},
-        { PATH("cpu_temp.sh"),          PATH("cpu_temp_button.sh"),     1,              4},
-        { PATH("battery.sh"),           PATH("battery_button.sh"),      30,             3},
+        { PATH("music.sh"),             PATH("music_button.sh"),        200,            8},
+        { PATH("cpu_load.sh"),          PATH("cpu_button.sh"),          30000,          4},
+        { PATH("ram.sh"),               PATH("ram_button.sh"),          30000,          3},
+        { PATH("calendar.sh"),          NULL,                           10000,          1},
         { NULL } /* just to mark the end of the array */
 };
