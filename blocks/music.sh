@@ -3,7 +3,7 @@
 
 [ ! -f /tmp/spotify-trackdata ] && /home/markus/scripts/update-spotify-track
 
-( [ ! -f /tmp/spotify-trackdata ] || [ -z "$(cat /tmp/spotify-trackdata)" ] || [ -z "$(ps -a | grep 'spt')" ] ) && exit 0
+( [ ! -f /tmp/spotify-trackdata ] || [ -z "$(cat /tmp/spotify-trackdata)" ] || [ -z "$(ps aux | grep 'spt')" ] ) && exit 0
 
 function toHMS() {
     local T=$1/1000000
