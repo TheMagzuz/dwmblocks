@@ -1,6 +1,6 @@
 #!/bin/sh
 
-
+set -e 
 [ ! -f /tmp/spotify-trackdata ] && /home/markus/scripts/update-spotify-track
 
 ( [ ! -f /tmp/spotify-trackdata ] || [ -z "$(cat /tmp/spotify-trackdata)" ] || [ -z "$(ps aux | grep 'spt')" ] ) && exit 0
