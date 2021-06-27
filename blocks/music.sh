@@ -1,9 +1,9 @@
 #!/bin/sh
 
 set -e 
-[ ! -f /tmp/spotify-trackdata ] && /home/markus/scripts/update-spotify-track
+[ ! -f /tmp/spotify-trackdata ] && /home/markus/scripts/update-spotify-track || exit 2
 
-( [ ! -f /tmp/spotify-trackdata ] || [ -z "$(cat /tmp/spotify-trackdata)" ] || [ -z "$(ps aux | grep 'spt')" ] ) && exit 0
+( [ ! -f /tmp/spotify-trackdata ] || [ -z "$(cat /tmp/spotify-trackdata)" ] || [ -z $(pidof spt)] ) && exit 1
 
 function toHMS() {
     local T=$1/1000000
@@ -32,7 +32,7 @@ progress=`dbus-send --print-reply --session --dest=org.mpris.MediaPlayer2.spotif
     }
 }'`
 
-[ -z $progress ] && exit 0
+[ -z $progress ] && exit 2
 
 md=`cat /tmp/spotify-trackdata`
 
@@ -42,7 +42,7 @@ length=`echo "$md" | awk '/mpris:length/ {
 }
 '`
 
-[ -z $length ] && exit 
+[ -z $length ] && exit 3
 
 title=`echo "$md" | awk '/xesam:title/ {
         $1=""
