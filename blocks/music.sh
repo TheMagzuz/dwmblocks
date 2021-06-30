@@ -3,7 +3,7 @@
 set -e 
 [ ! -f /tmp/spotify-trackdata ] && /home/markus/scripts/update-spotify-track || exit 2
 
-( [ ! -f /tmp/spotify-trackdata ] || [ -z "$(cat /tmp/spotify-trackdata)" ] || [ -z $(pidof spt)] ) && exit 1
+( [ ! -f /tmp/spotify-trackdata ] || [ -z "$(cat /tmp/spotify-trackdata | head -n1)" ] || [ -z $(pidof spt)] ) && exit 1
 
 function toHMS() {
     local T=$1/1000000
